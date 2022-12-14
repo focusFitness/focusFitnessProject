@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/styles.scss';
 
-const LoginPage = (props) => {
-  const {setState, state} = props;
+const LoginPage = () => {
   const navigate = useNavigate();
  
   const handleLogin = (e) => {
     e.preventDefault();
+    
     const loginInfo = {
       username: document.getElementById('username').value,
       password: document.getElementById('password').value
@@ -17,13 +16,13 @@ const LoginPage = (props) => {
     axios.post('http://localhost:3000/login', loginInfo)
       .then(data => {
         console.log(data);
-        
         navigate("/dashboard");
       })
       .catch(error => {
         console.log(error);
       });
     }
+
   return (
     <div id="login-page">
       <div id="login-page-container">

@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const RegisterPage = (props) => {
   const navigate = useNavigate();
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -21,8 +22,6 @@ const RegisterPage = (props) => {
       .catch(function(error){
         console.log(error);
       });
-    console.log('Made Axios Request');
-    
   }
 
   return (
@@ -37,7 +36,6 @@ const RegisterPage = (props) => {
             <div className="signup-botton-container">
               <button className="signup-button" id="signup-submit" onClick={submitHandler}>Sign Up</button>
               <div id="back-to-login"><Link to="/">Back to Login</Link></div>
-              {/* <button className="signup-button"><Link to="/">Back to Login</Link></button> */}
             </div>
           </form>
         </div>
