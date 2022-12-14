@@ -7,7 +7,7 @@ const registerRouter = require('./routers/registerRouter.js');
 
 
 app.use(express.json());
-app.use(bodyParser);
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/register', registerRouter);

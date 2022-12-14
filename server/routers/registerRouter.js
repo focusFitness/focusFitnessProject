@@ -7,7 +7,7 @@ const registerRouter = Router();
 registerRouter.post('/', 
     dbController.addUser, 
     (req, res) => {
-        res.status(200);
+        res.status(200).send({message: "Completed"});
     })
 
 module.exports = registerRouter;

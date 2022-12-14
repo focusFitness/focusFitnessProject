@@ -16,14 +16,9 @@ const LoginPage = (props) => {
 
     axios.post('http://localhost:3000/login', loginInfo)
       .then(data => {
-        console.log(data.data);
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.isLoggedIn = true;
-        newState.user_id = data.data.user_id;
-        newState.username = data.data.username;
-        setState(newState);
+        console.log(data);
         
-        navigate('/main');
+        navigate("/dashboard");
       })
       .catch(error => {
         console.log(error);

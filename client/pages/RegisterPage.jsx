@@ -10,11 +10,10 @@ const RegisterPage = (props) => {
     const signUpInfo = {
       username: document.getElementById('signup-username').value,
       email: document.getElementById('email').value,
-      password: document.getElementById('signup-password').value,
-      language: document.getElementById('selectLanguage').value
+      password: document.getElementById('signup-password').value
     };
 
-    axios.post('http://localhost:3000/signup', signUpInfo)
+    axios.post('http://localhost:3000/register', signUpInfo)
       .then(function (response) {
         console.log(response);
         navigate('/');
