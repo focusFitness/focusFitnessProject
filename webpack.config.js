@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { webpack } = require('webpack');
 
 module.exports = {
-  entry: ['./client/index.js', './client/styles/app.scss'],
+  entry: ['./client/index.js'],
   output: {
     path: path.resolve(__dirname, './build'),
     filename: 'bundle.js'
@@ -34,7 +34,8 @@ module.exports = {
       '/api': 'http://localhost:3000'
     },
     static: {
-      directory: path.resolve(__dirname, './build')
+      directory: path.resolve(__dirname, './build'),
+      publicPath: 'http://localhost:8080'
     },
     compress: true,
     port: 8080,

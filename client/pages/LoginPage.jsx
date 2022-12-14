@@ -14,13 +14,12 @@ const LoginPage = (props) => {
       password: document.getElementById('password').value
     }
 
-    axios.post('http://localhost:3000/login/', loginInfo)
+    axios.post('http://localhost:3000/login', loginInfo)
       .then(data => {
         console.log(data.data);
         const newState = JSON.parse(JSON.stringify(state));
         newState.isLoggedIn = true;
         newState.user_id = data.data.user_id;
-        newState.language = data.data.language;
         newState.username = data.data.username;
         setState(newState);
         
@@ -33,7 +32,6 @@ const LoginPage = (props) => {
   return (
     <div id="login-page">
       <div id="login-page-container">
-        <h1>Focus Fitness</h1>
         <div className="login-container">
           <form id="login-inputs">
             <input id="username" type="text" placeholder="Username" required></input>
@@ -43,7 +41,7 @@ const LoginPage = (props) => {
         </div>
         <div id="sign-up-message">
           <p>Don't have an account yet?</p>
-          <Link to="/signup">SignUp</Link>
+          <Link to="/register">SignUp</Link>
         </div>
       </div>
     </div>
