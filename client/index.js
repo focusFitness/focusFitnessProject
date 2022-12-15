@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import LoginPage from './pages/LoginPage.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function AppRouter() {
     return (

@@ -32,7 +32,7 @@ const RegisterPage = (props) => {
           <form id="signup-input">
             <input id="signup-username" placeholder="Username"></input>
             <input id="email" placeholder="E-mail" ></input>
-            <input id="signup-password" placeholder="Password" ></input>
+            <input id="signup-password" type="password" placeholder="Password" ></input>
             <div className="signup-botton-container">
               <button className="signup-button" id="signup-submit" onClick={submitHandler}>Sign Up</button>
               <div id="back-to-login"><Link to="/">Back to Login</Link></div>

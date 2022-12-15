@@ -12,7 +12,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
@@ -22,8 +22,28 @@ module.exports = {
         }
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.s?[ac]ss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: () => [
+                  require('autoprefixer')
+                ]
+              }
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ],
       },
     ]
   },
