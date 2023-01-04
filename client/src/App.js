@@ -1,74 +1,68 @@
-import './App.css';
-import React, { useState} from "react";
-import Axios from 'axios'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route, Outlet,
+} from "react-router-dom";
+import Register from"./pages/Register"
+import Login from"./pages/Login"
+import Write from"./pages/Write"
+import Single from"./pages/Single"
+import Home from"./pages/Home"
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+
+const Layout = () =>{
+  return(
+    <>
+    <Navbar/>
+    <Outlet/>
+    <Footer/>
+    </>
+
+  );
+};
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout/>,
+    children:[
+      {
+        path:"/",
+        element:<Home/>
+      },
+      {
+        path:"/post/:id",
+        element:<Single/>
+      },
+      {
+        path:"/write",
+        element:<Write/>
+      },
+    ]
+  },
+  {
+    path: "/register",
+    element: <Register/>,
+  },
+  {
+    path: "/login",
+    element: <Login/>,
+  },
+]);
 
 
 function App() {
-
-  const [usernameReg, setUsernameReg] = useState("")
-  const [passwordReg, setPasswordReg] = useState("")
-  
-
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-
-  const[loginStatus, setLoginStatus] = useState("")
-
-
-
-  const register = () => {
-    Axios.post("http://localhost:3002/register", {
-      username: usernameReg, 
-      password: passwordReg
-    }).then((response)=>{
-      console.log(response.data)
-    })
-  }
-  const login = () => {
-    Axios.post("http://localhost:3002/login", {
-      username: username, 
-      password: password
-    }).then((response)=>{
-      if(response.data.message){
-        setLoginStatus(response.data.message);
-      } else{
-        setLoginStatus(response.data[0].username)
-      }
-      console.log(response.data)
-    })
-  }
-
   return (
-   <div className='App'>
-    <div className='registration'>
-      <h1>Register</h1>
-      <label>Username</label>
-      <input type="text" onChange={(e)=> {setUsernameReg(e.target.value)}}/>
-      <label>Password</label>
-      <input type="text"onChange={(e)=> {setPasswordReg(e.target.value)}}/>
-      <button onClick={register}> Register </button>
-    </div>
-   
-   <div className='login'>
-    <h1>Login</h1>
-    <input 
-    type="text" 
-    placeholder="Username..."
-    onChange={(e)=>{
-      setUsername(e.target.value)
-    }}
-    />
-    <input 
-    type="password"
-     placeholder="Password..."
-     onChange={(e)=>{
-      setPassword(e.target.value);
-     }}/>
-    <button onClick={login}> Login </button>
-   </div>
-   <h1>{loginStatus}</h1>
-   </div>
-  ); 
+      <div className="app">
+        <div className="container">
+        <RouterProvider router = {router}/>
+        </div>
+      </div>
+  );
 }
+
+
 
 export default App;
