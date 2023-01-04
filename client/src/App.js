@@ -10,6 +10,7 @@ import Single from"./pages/Single"
 import Home from"./pages/Home"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import '../src/style.scss'
 
 
 const Layout = () =>{
