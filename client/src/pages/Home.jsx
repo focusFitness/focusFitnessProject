@@ -1,41 +1,78 @@
-import React from 'react'
-import {Link} from 'react-router-dom';
-
-
-
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Home = () => {
-  const posts = [
-    {
-      id:1,
-      title: "This is the title",
-      desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Penatibus et magnis dis parturient montes nascetur ridiculus mus mauris. Sem integer vitae justo eget. Mi proin sed libero enim sed faucibus turpis. Vitae suscipit tellus mauris a diam maecenas. Eget arcu dictum varius duis at consectetur lorem. Blandit turpis cursus in hac habitasse platea dictumst quisque. Lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique. At erat pellentesque adipiscing commodo elit at. Bibendum at varius vel pharetra vel turpis. Lacus vestibulum sed arcu non odio euismod lacinia at quis. Eu tincidunt tortor aliquam nulla facilisi cras. Ut tortor pretium viverra suspendisse potenti. Elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Nascetur ridiculus mus mauris vitae ultricies leo.",
-      img:'https://i.pinimg.com/736x/03/b4/76/03b47628916d02daf9c3c89f7a62d177--cute-cat-wallpaper-wallpaper-pictures.jpg'
-    },
-  ]
+  const [posts, setPosts] = useState([]);
+
+  const cat = useLocation().search
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/posts${cat}`);
+        setPosts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [cat]);
+  // const posts = [
+  //   {
+  //     id: 1,
+  //     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+  //     desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
+  //     img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+  //     desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
+  //     img: "https://images.pexels.com/photos/6489663/pexels-photo-6489663.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+  //     desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
+  //     img: "https://images.pexels.com/photos/4230630/pexels-photo-4230630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+  //     desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
+  //     img: "https://images.pexels.com/photos/6157049/pexels-photo-6157049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  //   },
+  // ];
+
+  const getText = (html) =>{
+    const doc = new DOMParser().parseFromString(html, "text/html")
+    return doc.body.textContent
+  }
+
+
   return (
-    <div className='home'>
-      <div className='posts'>
-        {posts.map(post=>(
+    <div className="home">
+      <div className="posts">
+        {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-              <img src={post.img} alt="" />
+              <img src={`../upload/${post.img}`} alt="" />
             </div>
             <div className="content">
-              <Link className='link' to = {'/post/${post.id}'}>
-              <h1>{post.title}</h1>
-              <p>{post.desc}</p>
-              <button>read more</button>
+              <Link className="link" to={`/post/${post.id}`}>
+                <h1>{post.title}</h1>
               </Link>
+              <p>{getText(post.desc)}</p>
+              <button>Read More</button>
             </div>
-
           </div>
         ))}
-
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
